@@ -6,7 +6,8 @@ import re
 
 text = 'First commit to the repository. Very simple string tokenization!'
 
-tokens = re.split('!|\.| ', text)
+def tokenize(string):
 
-print tokens
+    return re.split('!|\.| ', text)
 
+print tokenize(text)

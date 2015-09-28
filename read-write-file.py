@@ -1,14 +1,21 @@
 __author__ = 'Andrew'
 
-
-import os
 from bs4 import BeautifulSoup
 import nltk
 
-file = open('doc.sgm', 'r')
-text = file.read()
-soup = BeautifulSoup(text, "html.parser")
-body = str(soup.find_all('body')[0]);
+def trimBodyTags (string):
+    return string[6:-7]
 
-tokens = nltk.word_tokenize(body)
+def extractDocuments (fileName):
+    file = open(fileName, 'r')
+    fileAsText = file.read()
+    documentModel = BeautifulSoup(fileAsText, "html.parser")
+    documents = documentModel.find_all('body');
+    docsAsStrings = []
+    for document in documents:
+        docsAsStrings.append(trimBodyTags(str(document)))
+    return docsAsStrings
+
+tokens = nltk.word_tokenize(extractDocuments('doc.sgm')[0])
+
 print tokens
